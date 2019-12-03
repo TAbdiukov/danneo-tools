@@ -114,3 +114,11 @@ venv.bak/
 init_p*.py
 priv*.py
 p_*.py
+
+# folders
+nocommit/
+nocommit/*
+src/053/
+src/053/*
+src/055/
+src/055*
