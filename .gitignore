@@ -102,3 +102,15 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# config
+*.inf
+*.ini
+*.cnf
+*.conf
+*.config
+
+# Private PYs
+init_p*.py
+priv*.py
+p_*.py
