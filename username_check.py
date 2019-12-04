@@ -38,11 +38,8 @@ def merge_two_dicts(x, y):
 	return z
 
 def fti_digest(pfti, input):
-	if(input == pfti[1]):
-		return True
-	# Make things easier
-	return False
-
+	return pfti.index(input)
+	
 def getUnixTime():
 	return toHexCustom(int(time.time()))
 	
@@ -137,14 +134,20 @@ def main():
 			i=i+1
 			data = ast.literal_eval(data_base + uname + "'}")
 			resp = requests.post(work_url, headers=headers, data=data)
-			if(fti_digest(processed_fti, resp.text)):
-				fgood.write(uname + "\n")
-				whatToLog = "[G] "+ uname
+			buf = fti_digest(processed_fti, resp.text)
+			if(buf == 0): # login FREE
+				fbad.write(uname + "\n")
+				whatToLog = "[F] "+ uname
 				flog.write(whatToLog+"\n")
 				print(whatToLog)
-			else:
-				fbad.write(uname + "\n")
-				whatToLog = "[B] "+ uname
+			elif (buf == 1): # login TAKEN
+				fgood.write(uname + "\n")
+				whatToLog = "[T] "+ uname
+				flog.write(whatToLog+"\n")
+				print(whatToLog)
+			elif (buf == 2): # login INVALID
+				fgood.write(uname + "\n")
+				whatToLog = "[I] "+ uname
 				flog.write(whatToLog+"\n")
 				print(whatToLog)
 				
