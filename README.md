@@ -1,6 +1,10 @@
 # danneo-tools
 Tools for Danneo CMS manipulation
 
+## STATUS
+* **UNFINISHED**. Only `tool_username_check.py`  works thus far. Maybe finish in the future
+
+
 ## Target software
 (generally, v0.5.x)
 

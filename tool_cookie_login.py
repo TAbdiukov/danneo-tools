@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+
+# UNFINISHED
+"""UNFINISHED"""
+
 # time watch and sleep purposes
 import time
 
@@ -169,8 +173,11 @@ def gen_cook_string(id, username):
 	ret = i0_prefix + i0_slen + ":" + C34 + i0_string + C34 + ";"
 	
 	i1_prefix = "i:1;s:"
-	i1_string = 
+	i1_string = "password"
 	i1_slen = len(i0_string)
+	
+	
+	
 
 def cook_string_to_cookie(s):
 

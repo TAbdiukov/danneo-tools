@@ -26,6 +26,7 @@ def main():
 	
 	config[WEBSITE] = {
 		'url': 'http://example.com', 
+		'header': "{'Upgrade-Insecure-Requests': '1'}",
 		'user_cookie': '123userCRAZZZY',
 		'user_id_min': 1336,
 		'user_id_max': 25000,
@@ -36,6 +37,7 @@ def main():
 		'login_status_url': "/scriptzz/am_i_logged_on.php",
 		'login_len_false': "[0, 666]",
 		'login_len_true': "[1337, 22222]",
+		'login_interval': 800
 	}
 
 	with open(CFG(), 'w') as configfile:
