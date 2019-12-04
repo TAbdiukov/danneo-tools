@@ -29,6 +29,10 @@ def main():
 		'user_cookie': '123userCRAZZZY',
 		'user_id_max': 25000,
 		'type': 666,
+		'username_check_variable': 'usernamechk',
+		'username_check_url': "/mod/user/check.php",
+		'username_check_FreeOrTakenOrInvalid': "Username free|Username taken|Username invalid",
+
 	}
 
 	with open(CFG(), 'w') as configfile:
