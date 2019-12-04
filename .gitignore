@@ -124,5 +124,6 @@ src/055/
 src/055*
 
 # results
-.text
 *.text
+*.txt
+
