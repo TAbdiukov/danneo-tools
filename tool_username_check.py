@@ -11,7 +11,7 @@ import requests
 
 # for config manipulation
 import configparser
-import ast
+import ast # https://stackoverflow.com/a/56084659/12258312
 	
 # for visuals
 from etaprogress.progress import ProgressBar
