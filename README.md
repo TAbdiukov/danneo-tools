@@ -9,8 +9,7 @@ Tools for Danneo CMS manipulation
 ## Target software
 (generally, v0.5.x)
 
-* [Danneo CMS 0.53](https://archive.org/details/danneo-053)
-
-* **Danneo CMS 0.54**
-
-* [Danneo CMS 0.55](https://archive.org/details/danneo-0.5.5)
+* [Danneo CMS 0.53](https://archive.org/details/danneo-053)  
+* [Danneo CMS 0.54 (fixed)](https://archive.org/details/cms.danneo.0.5.4_fixed)  
+* [Danneo CMS 0.55](https://archive.org/details/danneo-0.5.5)  
+* [Danneo CMS 0.5.5 SQLite Edition](https://archive.org/details/danneo-055-sqlite)  
