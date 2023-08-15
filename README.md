@@ -1,7 +1,12 @@
 # danneo-tools
 Tools for Danneo CMS manipulation
 
-## STATUS
+## Other links
+
+* [Danneo 0.51 - Blind SQLi](https://www.exploit-db.com/exploits/5239)
+* [Danneo 0.52 - SQLi](https://packetstormsecurity.com/0908-exploits/danneo052-sql.txt)
+
+## Status
 * **UNFINISHED, BETA**. `tool_username_check.py` works thus far. Maybe finish in the future
 
 	* `tool_cookie_login.py` ALMOST works, need to understand how websites work to crack whatever cypher it uses. Look up `idk_todo_recon`
