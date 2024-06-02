@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 try:
     import requests
 except ModuleNotFoundError:
@@ -14,8 +16,8 @@ from pathlib import Path
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-# Description: The script mass-checks domain names for Danneo
-# Input: domain names (without protocol) in an input file
+# Description: The script mass-checks RAW domain names for Danneo
+# Input: RAW domain names (without protocol) in an input file
 # Output: Results in a separate file
 
 # Define headers
@@ -40,15 +42,15 @@ headers = {
 
 
 # Create the parser
-parser = argparse.ArgumentParser(description='Process some URLs.')
+parser = argparse.ArgumentParser(description='Process some domain names.')
 
 # Add the arguments
-parser.add_argument('URLsFile', metavar='URLsFile', type=str, help='The file with URLs')
+parser.add_argument('URLsFile', metavar='URLsFile', type=str, help='The file with domain names')
 
 # Parse the arguments
 args = parser.parse_args()
 
-# Open the file with URLs
+# Open the file with domain names
 with open(args.URLsFile, 'r') as f:
     urls_in = f.read().splitlines()
     
@@ -91,5 +93,7 @@ with open(Path(args.URLsFile).stem+'-output.txt', 'a') as f:
             result = f'URL: {url}, Error: {str(e)}'
         finally:
             f.write(result+"\n")
+            f.flush()
             print(result)
 
+f.close()
