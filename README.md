@@ -1,11 +1,6 @@
 # danneo-tools
 Tools for Danneo CMS manipulation
 
-## Other links
-
-* [Danneo 0.51 - Blind SQLi](https://www.exploit-db.com/exploits/5239)  
-* [Danneo 0.52 - SQLi](https://packetstormsecurity.com/0908-exploits/danneo052-sql.txt)
-
 ## Target software
 (generally, v0.5.x)
 
