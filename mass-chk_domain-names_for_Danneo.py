@@ -53,7 +53,7 @@ args = parser.parse_args()
 # Open the file with domain names
 with open(args.URLsFile, 'r') as f:
     urls_in = f.read().splitlines()
-    
+
 urls = []
 for u in urls_in:
     if(u):
@@ -72,7 +72,7 @@ with open(Path(args.URLsFile).stem+'-output.txt', 'a') as f:
             # Error-correction
             if("http" not in url):
                 url = "https://"+url
-            
+
             # Send a GET request
             response = requests.get(url, headers=headers, verify=False)
             # If the response is valid
